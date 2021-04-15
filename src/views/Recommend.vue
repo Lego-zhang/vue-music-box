@@ -3,7 +3,9 @@
 </template>
 
 <script>
+import { getRecommend } from '../../service/recommend'
 export default {
+  name: 'recommend',
   components: {},
   props: {},
   data () {
@@ -13,7 +15,10 @@ export default {
   watch: {},
   computed: {},
   methods: {},
-  created () { },
+  async created () {
+    const result = await getRecommend()
+    console.log(result)
+  },
   mounted () { }
 }
 </script>

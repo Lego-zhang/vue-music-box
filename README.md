@@ -121,3 +121,12 @@ const router = new VueRouter({
   routes: [{ path: "/a", redirect: "/b" }],
 });
 ```
+
+## 2021 年 04 月 15 日
+
+1. 第三方禁止跨域请求，通过自己搭建 WEBserver 来进行请求
+2. 如何在 CIL 中创建 WEBserver
+
+   - vue.config.js 进行配置
+
+3. 后端处理数据。前端只做数据渲染和交互
