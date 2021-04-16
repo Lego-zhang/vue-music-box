@@ -130,3 +130,20 @@ const router = new VueRouter({
    - vue.config.js 进行配置
 
 3. 后端处理数据。前端只做数据渲染和交互
+
+### 轮播图数据请求流程
+
+1. 后端数据处理
+2. 前端请求函数封装
+   - axios get 函数的封装
+3. 轮播图数据的请求
+4. 轮播图组件的使用
+
+- 调用轮播图数据请求在 created 生命周期中
+
+## 2021 年 04 月 16 日
+
+1. 创建组件 slider
+2. 使用 better-scroll [https://better-scroll.github.io/docs]
+3. 在创建节点是用 setup 函数 获轮播图 DOM，创建 use-slider.js 封装第三方库
+4. 在 use-slider.js 中 onMounted 创建 ，在 onUnmounted 销毁
