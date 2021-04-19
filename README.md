@@ -147,3 +147,14 @@ const router = new VueRouter({
 2. 使用 better-scroll [https://better-scroll.github.io/docs]
 3. 在创建节点是用 setup 函数 获轮播图 DOM，创建 use-slider.js 封装第三方库
 4. 在 use-slider.js 中 onMounted 创建 ，在 onUnmounted 销毁
+
+## 2021 年 04 月 19 日
+
+1. 推荐页面滚动，解决 css overflow 不兼容 创建 scroll 组件
+2. scroll 组件插槽 暴露 useScrll 方法
+3. 使用插件的时候插件只会给第一层子元素添加滚动，所以只有在插槽内部再包一层 dom
+4. scroll 数据实现同步异步刷新需要使用 ObserveDOM
+
+### 图片懒加载
+
+1. 全局引入 lazyPlugin 插件

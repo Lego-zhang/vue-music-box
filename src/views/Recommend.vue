@@ -1,26 +1,58 @@
 <template>
   <div class="recommend">
-    <div class="slider-wrapper">
-      <div class="slider-content">
-        <Slide
-          v-if="sliders.length"
-          :sliders="sliders"
-        ></Slide>
+    <Scroll class="recommend-content">
+      <div>
+        <div class="slider-wrapper">
+          <div class="slider-content">
+            <Slide
+              v-if="sliders.length"
+              :sliders="sliders"
+            ></Slide>
+          </div>
+        </div>
+        <div class="recommend-list">
+          <h1 class="list-title">热门歌单推荐</h1>
+          <ul>
+            <li
+              v-for="item in albums"
+              class="item"
+              :key="item.id"
+            >
+              <div class="icon">
+                <img
+                  width="60"
+                  height="60"
+                  :src="item.pic"
+                />
+              </div>
+              <div class="text">
+                <h2 class="name">
+                  {{item.username}}
+                </h2>
+                <p class="title">
+                  {{item.title}}
+                </p>
+              </div>
+            </li>
+          </ul>
+        </div>
       </div>
-    </div>
+    </Scroll>
   </div>
 </template>
 
 <script>
 import { getRecommend } from '../../service/recommend'
+import Scroll from '../components/base/scroll/scroll.vue'
 import Slide from '../components/base/slide/slide.vue'
 export default {
   name: 'recommend',
-  components: { Slide },
+  components: { Slide, Scroll },
   props: {},
   data () {
     return {
-      sliders: []
+      sliders: [],
+      albums: []
     }
   },
   watch: {},
@@ -28,8 +60,10 @@ export default {
   methods: {},
   async created () {
     const result = await getRecommend()
-    console.log(result.result)
+
     this.sliders = result.sliders
+
+    this.albums = result.albums
   },
   mounted () { }
 }
