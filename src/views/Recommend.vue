@@ -1,5 +1,8 @@
 <template>
-  <div class="recommend">
+  <div
+    class="recommend"
+    v-loading:[loadingText]="loading"
+  >
     <Scroll class="recommend-content">
       <div>
         <div class="slider-wrapper">
@@ -11,7 +14,10 @@
           </div>
         </div>
         <div class="recommend-list">
-          <h1 class="list-title">热门歌单推荐</h1>
+          <h1
+            class="list-title"
+            v-show="!loading"
+          >热门歌单推荐</h1>
           <ul>
             <li
               v-for="item in albums"
@@ -22,7 +28,7 @@
                 <img
                   width="60"
                   height="60"
-                  :src="item.pic"
+                  v-lazy="item.pic"
                 />
               </div>
               <div class="text">
@@ -52,11 +58,16 @@ export default {
   data () {
     return {
       sliders: [],
-      albums: []
+      albums: [],
+      loadingText: '正在载入。。。'
     }
   },
   watch: {},
-  computed: {},
+  computed: {
+    loading () {
+      return !this.sliders.length && !this.albums.length
+    }
+  },
   methods: {},
   async created () {
     const result = await getRecommend()
