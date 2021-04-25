@@ -3,6 +3,7 @@
     class="index-list"
     :probe-type="3"
     @scroll="onScroll"
+    ref="scrollRef"
   >
     <ul ref="groupRef">
       <li
@@ -35,12 +36,19 @@
         {{fixedTitle}}
       </div>
     </div>
-    <div class="shortcut">
+    <div
+      class="shortcut"
+      @touchstart.stop.prevent="onShortcutTouchStart"
+      @touchmove.stop.prevent="onShortcutTouchMove"
+      @touchend.stop.prevent
+    >
       <ul>
         <li
-          class="item"
+          class="
+      item"
           v-for="(item ,index) in shortcutList"
           :key="item"
+          :data-index="index"
           :class="{'current':currentIndex === index}"
         >
           {{item}}
@@ -69,15 +77,18 @@ export default {
   setup (props) {
     const { groupRef, onScroll, fixedTitle, fixedStyle, currentIndex } = useFixed(props)
 
-    const { shortcutList } = useShortcut(props)
+    const { shortcutList, scrollRef, onShortcutTouchStart, onShortcutTouchMove } = useShortcut(props, groupRef)
 
     return {
       groupRef,
+      scrollRef,
       fixedTitle,
       fixedStyle,
       shortcutList,
       onScroll,
-      currentIndex
+      currentIndex,
+      onShortcutTouchStart,
+      onShortcutTouchMove
     }
   }
 
