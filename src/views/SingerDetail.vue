@@ -1,28 +1,45 @@
 <template>
-  <div class="singer-detail"></div>
+  <div class="singer-detail">
+    <muisc-list
+      :songs="songs"
+      :title="title"
+      :pic="pic"
+      :loading="loading"
+    ></muisc-list>
+  </div>
 </template>
 
 <script>
 import { getSingerDetail } from '../../service/siger'
 import { processSongs } from '../../service/songs'
+import MuiscList from '../components/music-list/muisc-list.vue'
 
 export default {
   name: 'SingerDetail',
-  components: {},
+  components: { MuiscList },
   props: {
     singer: Object
   },
   data () {
     return {
+      songs: [],
+      loading: true
     }
   },
   watch: {},
-  computed: {},
+  computed: {
+    pic () {
+      return this.singer && this.singer.pic
+    },
+    title () {
+      return this.singer && this.singer.name
+    }
+  },
   methods: {},
   async created () {
     const result = await getSingerDetail(this.singer)
-    const songs = await processSongs(result.songs)
-    console.log(songs)
+    this.songs = await processSongs(result.songs)
+    this.loading = false
   },
   mounted () { }
 }
