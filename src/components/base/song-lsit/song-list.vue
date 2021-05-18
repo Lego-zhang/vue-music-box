@@ -32,9 +32,14 @@ export default {
   },
   watch: {},
   computed: {},
+  emits: ['select'],
   methods: {
     getDesc (song) {
       return `${song.singer}${song.album}`
+    },
+    selectItem (song, index) {
+      console.log(1)
+      this.$emit('select', { song, index })
     }
   },
   created () { },
