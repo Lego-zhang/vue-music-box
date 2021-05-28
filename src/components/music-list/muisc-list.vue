@@ -12,6 +12,19 @@
       :style="bgImageStyle"
       ref="bgImage"
     >
+      <div
+        class="play-btn-wrapper"
+        :style="playBtnStyle"
+      >
+        <div
+          v-show="songs.length > 0"
+          class="play-btn"
+          @click="random"
+        >
+          <i class="icon-play"></i>
+          <span class="text">随机播放全部</span>
+        </div>
+      </div>
       <div class="filter"></div>
     </div>
     <scroll
@@ -68,6 +81,13 @@ export default {
   computed: {
     noResult () {
       return !this.loading && !this.songs.length
+    },
+    playBtnStyle () {
+      let display = ''
+      if (this.scrollY >= this.maxTranslateY) {
+        display = 'none'
+      }
+      return { display }
     },
     bgImageStyle () {
       const scrollY = this.scrollY
@@ -126,8 +146,12 @@ export default {
         index
       })
     },
+    random () {
+      this.randomPlay(this.songs)
+    },
     ...mapActions([
-      'selectPlay'
+      'selectPlay',
+      'randomPlay'
     ])
   },
   created () { },
